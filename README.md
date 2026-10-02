@@ -26,7 +26,7 @@ Open DART API로 SK하이닉스(고유번호 `00164779`)의 연결재무제표�
 API 키는 코드·README·브라우저 데이터에 포함하지 마세요.
 
 ## GitHub Pages 배포
-1. `github-workflows` 폴더를 저장소의 `.github/workflows`로 이름 변경/이동합니다. (압축파일의 숨김폴더 업로드 문제를 피하기 위해 별도 폴더로 제공)
+1. `.github/workflows/refresh-dart.yml`이 GitHub Actions 표준 위치에 있어야 합니다. 현재 저장소에 반영되어 있습니다.
 2. 저장소 **Settings → Pages**에서 Source를 **Deploy from a branch**, Branch를 `main`, Folder를 `/docs`로 설정합니다.
 3. **About** 영역의 Website에 `https://hsc-class01.github.io/dy_skhynix/`를 입력합니다.
 4. 배포 완료 후 README 상단 배지와 About 링크가 대시보드로 연결됩니다.
