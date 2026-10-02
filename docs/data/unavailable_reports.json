@@ -1,1 +1,127 @@
-[]
+[
+  {
+    "year": 2010,
+    "category": "annual",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2010,
+    "category": "half_year",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2010,
+    "category": "quarterly_q1",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2010,
+    "category": "quarterly_q3",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2011,
+    "category": "annual",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2011,
+    "category": "half_year",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2011,
+    "category": "quarterly_q1",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2011,
+    "category": "quarterly_q3",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2012,
+    "category": "annual",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2012,
+    "category": "half_year",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2012,
+    "category": "quarterly_q1",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2012,
+    "category": "quarterly_q3",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2013,
+    "category": "annual",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2013,
+    "category": "half_year",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2013,
+    "category": "quarterly_q1",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2013,
+    "category": "quarterly_q3",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2014,
+    "category": "annual",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2014,
+    "category": "half_year",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2014,
+    "category": "quarterly_q1",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2014,
+    "category": "quarterly_q3",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2015,
+    "category": "half_year",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2015,
+    "category": "quarterly_q1",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2015,
+    "category": "quarterly_q3",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2026,
+    "category": "annual",
+    "reason": "조회된 데이타가 없습니다."
+  },
+  {
+    "year": 2026,
+    "category": "quarterly_q3",
+    "reason": "조회된 데이타가 없습니다."
+  }
+]
