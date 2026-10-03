@@ -6,5 +6,24 @@ const n=v=>v==null||Number.isNaN(v)?'—':(v/1e12).toLocaleString('ko-KR',{maxim
 function make(id,type,labels,datasets,percent=false){if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),{type,data:{labels,datasets},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{x:{grid:{display:false}},y:{grid:{color:C.grid},ticks:{callback:v=>percent?v+'%':v+'조'}}}}})}
 function table(rows){let cols=[['year','연도'],['revenue','매출액'],['operating_profit','영업이익'],['net_income','순이익'],['cfo','CFO'],['fcf','FCF'],['operating_margin_pct','영업이익률'],['current_ratio_pct','유동비율'],['debt_to_equity_pct','부채비율'],['roe_pct','ROE']];return `<table><thead><tr>${cols.map(c=>'<th>'+c[1]+'</th>').join('')}</tr></thead><tbody>${rows.sort((a,b)=>b.year-a.year).map(r=>'<tr>'+cols.map(([k])=>'<td>'+(['operating_margin_pct','current_ratio_pct','debt_to_equity_pct','roe_pct'].includes(k)?p(r[k]):k==='year'?r[k]:n(r[k]))+'</td>').join('')+'</tr>').join('')}</tbody></table>`}
 function render(all){let annual=all.filter(x=>x.category==='annual').sort((a,b)=>a.year-b.year),last=annual.at(-1)||all.at(-1); if(!last){document.querySelector('main').innerHTML='<article class="card empty">아직 게시된 데이터가 없습니다. GitHub Actions에서 “Refresh Open DART financials”를 실행한 뒤 새로고침하세요.</article>';return}document.getElementById('updated').innerHTML='최근 공시 기준: <b>'+last.year+' '+(last.category||'')+'</b><br>표시 행: '+all.length+'건';let cards=[['최근 매출액',n(last.revenue),'매출성장률 '+p(last.revenue_growth_pct)],['최근 영업이익',n(last.operating_profit),'영업이익률 '+p(last.operating_margin_pct)],['최근 순이익',n(last.net_income),'순이익률 '+p(last.net_margin_pct)],['영업현금흐름',n(last.cfo),'FCF '+n(last.fcf)]];document.getElementById('kpis').innerHTML=cards.map(c=>`<article class="card"><div class="label">${c[0]}</div><div class="value">${c[1]}</div><div class="detail">${c[2]}</div></article>`).join('');let L=annual.map(x=>x.year);make('income','bar',L,[{label:'매출액',data:annual.map(x=>x.revenue/1e12),backgroundColor:C.blue},{label:'영업이익',data:annual.map(x=>x.operating_profit/1e12),backgroundColor:C.orange}]);make('margin','line',L,[{label:'영업이익률',data:annual.map(x=>x.operating_margin_pct),borderColor:C.blue,tension:.25},{label:'순이익률',data:annual.map(x=>x.net_margin_pct),borderColor:C.orange,tension:.25}],true);make('cash','bar',L,[{label:'CFO',data:annual.map(x=>x.cfo/1e12),backgroundColor:C.aqua},{label:'FCF',data:annual.map(x=>x.fcf/1e12),backgroundColor:C.gold}]);make('stability','line',L,[{label:'유동비율',data:annual.map(x=>x.current_ratio_pct),borderColor:C.blue,tension:.25},{label:'부채비율',data:annual.map(x=>x.debt_to_equity_pct),borderColor:C.orange,tension:.25},{label:'자기자본비율',data:annual.map(x=>x.equity_ratio_pct),borderColor:C.aqua,tension:.25}],true);document.getElementById('annual').innerHTML=table(all.filter(x=>x.category==='annual'));document.getElementById('half_year').innerHTML=table(all.filter(x=>x.category==='half_year'));document.getElementById('quarterly').innerHTML=table(all.filter(x=>x.category&&x.category.startsWith('quarterly')))}
-fetch('data/financials.json?v='+Date.now()).then(r=>r.ok?r.json():[]).then(render).catch(()=>render([]));
+async function loadData(){
+  const urls=[
+    'data/financials.json?v='+Date.now(),
+    'https://raw.githubusercontent.com/HSC-Class01/dy_skhynix/main/docs/data/financials.json?v='+Date.now()
+  ];
+  let lastError='';
+  for(const url of urls){
+    try{
+      const r=await fetch(url,{cache:'no-store'});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      const data=await r.json();
+      if(!Array.isArray(data) || !data.length) throw new Error('empty data');
+      return data;
+    }catch(e){lastError=e.message||String(e);}
+  }
+  throw new Error(lastError||'data load failed');
+}
+loadData().then(render).catch(e=>{
+  document.querySelector('main').innerHTML='<article class="card empty"><b>재무 데이터를 불러오지 못했습니다.</b><br><span class="caption">GitHub Actions는 정상 실행되었지만 Pages에서 데이터 파일에 접근하지 못했습니다. 잠시 후 새로고침하거나 GitHub 저장소의 docs/data/financials.json 연결을 확인하세요.</span><br><small>'+String(e.message||e).replace(/[<>]/g,'')+'</small></article>';
+});
 </script></body></html>
